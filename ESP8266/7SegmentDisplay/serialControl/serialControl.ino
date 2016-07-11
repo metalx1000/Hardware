@@ -1,8 +1,8 @@
 #include "LedControl.h"
 String inString = "";
 int pos = 0;
-// Arduino Pin 7 to DIN, 6 to Clk, 5 to LOAD, no.of devices is 1
-LedControl lc = LedControl(7, 6, 5, 1);
+// Arduino Pin 5 to DIN, 4 to Clk, 2 to LOAD, no.of devices is 1
+LedControl lc = LedControl(5, 4, 2, 1);
 void setup() {
     Serial.begin(115200);
     // Initialize the MAX7219 device
@@ -20,9 +20,18 @@ void loop() {
         int inChar = Serial.read();
         if (isDigit(inChar)) {
             inString = (char) inChar;
+
         }
 
-        if (inChar == '\n') {
+        
+        Serial.println(inChar);
+        if(inChar == 114){
+            Serial.println("Reset..."); 
+            for (int i = 0; i < 8; i++) {
+              lc.setDigit(0, i, 0, false);
+            }
+            pos = -1;   
+        }else if (inChar == '\n') {
             int x = inString.toInt();
             Serial.print("I received: ");
             Serial.println(x);
@@ -31,7 +40,7 @@ void loop() {
             if (pos > 7) {
                 pos = 0;
             }
-        }
+         }
     }
 }
 

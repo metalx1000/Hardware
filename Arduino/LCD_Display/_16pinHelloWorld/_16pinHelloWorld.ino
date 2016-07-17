@@ -6,7 +6,7 @@
  Hitachi HD44780 driver. There are many of them out there, and you
  can usually tell them by the 16-pin interface.
 
- This sketch prints "Hello World!" to the LCD
+ This sketch prints text to the LCD
  and shows the time.
 
   The circuit:
@@ -21,10 +21,12 @@ Arduino pin # 7   8   9   10  11  12
  by Tom Igoe
  modified 22 Nov 2010
  by Tom Igoe
+ modified 16 July 2016
+ by Kris Occhipinti
 
  This example code is in the public domain.
 
- http://www.arduino.cc/en/Tutorial/LiquidCrystal
+ https://learn.adafruit.com/character-lcds/wiring-a-character-lcd
  */
 
 // include the library code:
@@ -37,7 +39,7 @@ void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("hello, world!");
+  lcd.print("FilmsByKris.com!");
 }
 
 void loop() {

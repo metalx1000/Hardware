@@ -69,6 +69,6 @@ void loop() {
     cols();
   }
   for(int i=0;i<10;i++){
-    rs();
+    rows();
   }
 }

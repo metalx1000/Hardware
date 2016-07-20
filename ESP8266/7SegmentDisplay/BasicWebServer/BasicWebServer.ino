@@ -6,8 +6,8 @@
 // Arduino Pin 5 to DIN, 4 to Clk, 2 to LOAD, no.of devices is 1
 LedControl lc = LedControl(5, 4, 2, 1);
 
-const char* ssid = "Station 47";
-const char* password = "nnfdla47";
+const char* ssid = "....";
+const char* password = "....";
 
 ESP8266WebServer server(80);
 

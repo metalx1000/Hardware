@@ -1,8 +1,8 @@
 #include "LedControl.h"
 String inString = "";
 int pos = 0;
-// Arduino Pin 5 to DIN, 4 to Clk, 2 to LOAD, no.of devices is 1
-LedControl lc = LedControl(5, 4, 2, 1);
+// Arduino Pin 12 to DIN, 11 to Clk, 10 to LOAD, no.of devices is 1
+LedControl lc = LedControl(12,11,10,1);
 void setup() {
     Serial.begin(115200);
     // Initialize the MAX7219 device

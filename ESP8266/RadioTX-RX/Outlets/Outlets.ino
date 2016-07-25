@@ -8,6 +8,8 @@ const char* password = "....";
 
 ESP8266WebServer server(80);
 
+int dataPin = 13;
+
 #include <RCSwitch.h>
 
 RCSwitch mySwitch = RCSwitch();
@@ -74,8 +76,8 @@ void setup(void){
 
   server.begin();
   Serial.println("HTTP server started");
-  // Transmitter is connected to Arduino Pin #13  
-  mySwitch.enableTransmit(13);
+  // Transmitter is connected to Arduino Pin 'dataPin'  
+  mySwitch.enableTransmit(dataPin);
 
   // Optional set pulse length.
    mySwitch.setPulseLength(185);

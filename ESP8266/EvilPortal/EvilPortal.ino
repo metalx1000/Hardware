@@ -1,8 +1,10 @@
 /*
-   Captive Portal by: M. Ray Burnette 20150831
+   Original code by Captive Portal by: M. Ray Burnette 20150831
    See Notes tab for original code references and compile requirements
-   Sketch uses 300,640 bytes (69%) of program storage space. Maximum is 434,160 bytes.
-   Global variables use 50,732 bytes (61%) of dynamic memory, leaving 31,336 bytes for local variables. Maximum is 81,920 bytes.
+
+   This is a work in progress.
+   This is just meant to be a joke to scare people
+   I hope to add SDcard support in the future
 */
 
 #include <ESP8266WiFi.h>
@@ -31,7 +33,7 @@ void portal(){
 void setup() {
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-  WiFi.softAP("Jasons Deli WiFi");
+  WiFi.softAP("Evil Portal");
 
   // if DNSServer is started with "*" for domain name, it will reply with
   // provided IP to all DNS request

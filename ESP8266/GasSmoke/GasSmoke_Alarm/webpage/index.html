@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+<script>
+$(document).ready(function(){
+  setInterval(function(){ 
+    $.get('alarm.html',function(data){ 
+      $('h1').html(data);
+    });
+  }, 1000);
+});
+</script>
+</head>
+<body>
+  <h1></h1>
+</body>
+</html>

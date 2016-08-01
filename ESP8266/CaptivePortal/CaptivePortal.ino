@@ -14,16 +14,22 @@ IPAddress         apIP(10, 10, 10, 1);    // Private network for server
 DNSServer         dnsServer;              // Create the DNS object
 ESP8266WebServer  webServer(80);          // HTTP server
 
+/* Set these to your desired credentials. */
+const char *ssid = "Station 47";
+const char *password = "nnfdla47";
+
 String responseHTML = ""
-                      "<!DOCTYPE html><html><head><title>CaptivePortal</title></head><body>"
-                      "<h1>Hello World!</h1><p>This is a captive portal example. All requests will "
-                      "be redirected here.</p></body></html>";
+                      
+                      "<!DOCTYPE html><html><head><title>Virus Detected</title><meta name='viewport' content='width=device-width, initial-scale=1.0'></head>\n"
+                      "<body><h1>Your Computer Is Now Infected!!!</h1><p>You are Welcome.</p></body>\n"
+                      "<script>alert('Virus Found');</script>\n"
+                      "</html>\n";
 
 
 void setup() {
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-  WiFi.softAP("DNSServer CaptivePortal example");
+  WiFi.softAP(ssid,password);
 
   // if DNSServer is started with "*" for domain name, it will reply with
   // provided IP to all DNS request

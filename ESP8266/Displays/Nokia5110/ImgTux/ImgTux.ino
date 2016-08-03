@@ -1,10 +1,10 @@
 // Define digital pins
 
-#define PIN_SCE   2
-#define PIN_RESET 14
-#define PIN_DC    12
-#define PIN_SDIN  13
-#define PIN_SCLK  15
+#define PIN_SCE   2  //D4
+#define PIN_RESET 14 //D5
+#define PIN_DC    12 //D6
+#define PIN_SDIN  13 //D7
+#define PIN_SCLK  15 //D8
 
 #define LCD_C     LOW
 #define LCD_D     HIGH

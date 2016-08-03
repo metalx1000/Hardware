@@ -17,8 +17,8 @@ DNSServer         dnsServer;              // Create the DNS object
 ESP8266WebServer  webServer(80);          // HTTP server
 
 /* Set these to your desired credentials. */
-const char *ssid = "Station 47";
-const char *password = "nnfdla47";
+const char *ssid = ".....";
+const char *password = ".....";
 
 String responseHTML = ""
                       

@@ -17,7 +17,7 @@ DNSServer         dnsServer;              // Create the DNS object
 ESP8266WebServer  webServer(80);          // HTTP server
 
 /* Set these to your desired credentials. */
-const char *ssid = ".....";
+const char *ssid = "Virus";
 const char *password = ".....";
 
 String responseHTML = ""
@@ -36,7 +36,7 @@ void portal(){
 void setup() {
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-  WiFi.softAP(ssid,password);
+  WiFi.softAP(ssid);
 
   // if DNSServer is started with "*" for domain name, it will reply with
   // provided IP to all DNS request

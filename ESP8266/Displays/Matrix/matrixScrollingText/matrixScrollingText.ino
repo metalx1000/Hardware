@@ -1,6 +1,17 @@
 #include <MaxMatrix.h>
 #include <pgmspace.h>
- 
+
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
+
+const char* ssid = "......";
+const char* password = "......";
+
+ESP8266WebServer server(80);
+
+const int led = 2;
  
 PROGMEM const unsigned char CH[] = {
 3, 8, B00000000, B00000000, B00000000, B00000000, B00000000, // space
@@ -99,10 +110,11 @@ PROGMEM const unsigned char CH[] = {
 3, 8, B01000001, B00110110, B00001000, B00000000, B00000000, // }
 4, 8, B00001000, B00000100, B00001000, B00000100, B00000000, // ~
 };
- 
-int data = 12;    // DIN pin of MAX7219 module
-int load = 13;    // CS pin of MAX7219 module
-int clock = 15;  // CLK pin of MAX7219 module
+
+
+int data = 12;    // DIN pin of MAX7219 module - D6
+int load = 13;    // CS pin of MAX7219 module  - D7
+int clock = 15;  // CLK pin of MAX7219 module  - D8
  
 int maxInUse = 2;  //how many MAX7219 are connected
  
@@ -110,20 +122,85 @@ MaxMatrix m(data, load, clock, maxInUse); // define Library
  
 byte buffer[10];
  
-char string1[] = " www.FilmsByKris.com      ";  // Scrolling Text
+char* string1 = "    EMBER TO MISSION CONTROL   ";  // Scrolling Text
  
+
+void handleRoot() {
+  digitalWrite(led, 1);
+  
+  if (server.args() > 0 ) {
+    for ( uint8_t i = 0; i < server.args(); i++ ) {
+      if (server.argName(i) == "msg") {
+        strcpy (string1,server.arg(i).c_str());
+
+        server.send(200, "text/plain", server.arg(i));
+      }
+    }
+  } else{
+    string1="    EMBER TO MISSION CONTROL   ";
+    server.send(200, "text/plain", "");
+  }
+
+  digitalWrite(led, 0);
+}
+
+void handleNotFound(){
+  digitalWrite(led, 1);
+  String message = "File Not Found\n\n";
+  message += "URI: ";
+  message += server.uri();
+  message += "\nMethod: ";
+  message += (server.method() == HTTP_GET)?"GET":"POST";
+  message += "\nArguments: ";
+  message += server.args();
+  message += "\n";
+  for (uint8_t i=0; i<server.args(); i++){
+    message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
+  }
+  server.send(404, "text/plain", message);
+  digitalWrite(led, 0);
+}
  
 void setup(){
   m.init(); // module MAX7219
   m.setIntensity(5); // LED Intensity 0-15
+  
+  pinMode(led, OUTPUT);
+  digitalWrite(led, 0);
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  if (MDNS.begin("esp8266")) {
+    Serial.println("MDNS responder started");
+  }
+
+  server.on("/", handleRoot);
+
+  server.onNotFound(handleNotFound);
+
+  server.begin();
+  Serial.println("HTTP server started");
+  
 }
  
-void loop(){
-  
+void loop(){  
   byte c;
   delay(100);
   m.shiftLeft(false, true);
   printStringWithShift(string1, 100);  // Send scrolling Text
+  server.handleClient();
  
 }
  
@@ -139,7 +216,9 @@ void printCharWithShift(char c, int shift_speed){
   {
     delay(shift_speed);
     m.shiftLeft(false, false);
+    server.handleClient();
   }
+  
 }
  
 // Extract characters from Scrolling text

@@ -6,8 +6,8 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-const char* ssid = "......";
-const char* password = "......";
+const char* ssid = "castle";
+const char* password = "5987cb800f";
 
 ESP8266WebServer server(80);
 
@@ -122,7 +122,7 @@ MaxMatrix m(data, load, clock, maxInUse); // define Library
  
 byte buffer[10];
  
-char* string1 = "    EMBER TO MISSION CONTROL   ";  // Scrolling Text
+char* string1 = "    Ember to Mission Control   ";  // Scrolling Text
  
 
 void handleRoot() {
@@ -137,7 +137,7 @@ void handleRoot() {
       }
     }
   } else{
-    string1="    EMBER TO MISSION CONTROL   ";
+    string1="    Mission Control to Ember   ";
     server.send(200, "text/plain", "");
   }
 

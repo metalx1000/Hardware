@@ -1,16 +1,11 @@
 /*
-  Melody
-
- Plays a melody
-
- circuit:
- * 8-ohm speaker on digital pin 8
-
- created 21 Jan 2010
- modified 30 Aug 2011
- by Tom Igoe
-
-This example code is in the public domain.
+  NIN Closer
+ GPLv3 - August 17th, 2016
+ Plays The Medoly from the end of Closer by Trent Reznor
+ Created by Kris Occhipinti
+ 
+ Based on code by Tom Igoe
+ Connect Speaker to Pin#8 and Ground on your Arduino  
 
  http://www.arduino.cc/en/Tutorial/Tone
 

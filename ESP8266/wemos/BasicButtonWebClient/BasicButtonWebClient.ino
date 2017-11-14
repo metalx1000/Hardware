@@ -39,14 +39,16 @@ int d = 1000;                //delay between presses to prevent triggering more 
 int buttonState = 0;         // variable for reading the pushbutton status
 
 //URL to connect to
-String url = "http://192.168.1.150:8080/cgi-bin/test.cgi";
+String url = "http://<url>";
+
+
 
 void setup() {
   Serial.begin(115200);
   delay(10);
 
   // We start by connecting to a WiFi network
-  WiFiMulti.addAP("castle", "5987cb800f");
+  WiFiMulti.addAP("...", "...");
   Serial.println();
   Serial.println();
   Serial.print("Wait for WiFi... ");

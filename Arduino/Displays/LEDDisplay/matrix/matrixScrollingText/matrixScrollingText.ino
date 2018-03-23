@@ -101,21 +101,24 @@ PROGMEM const unsigned char CH[] = {
 };
  
 int data = 12;    // DIN pin of MAX7219 module
-int load = 13;    // CS pin of MAX7219 module
-int clock = 15;  // CLK pin of MAX7219 module
+int load = 10;    // CS pin of MAX7219 module
+int clock = 11;  // CLK pin of MAX7219 module
  
 int maxInUse = 2;  //how many MAX7219 are connected
  
 MaxMatrix m(data, load, clock, maxInUse); // define Library
  
 byte buffer[10];
- 
-char string1[] = " www.FilmsByKris.com      ";  // Scrolling Text
- 
+
+String content = "";
+boolean stringComplete = false;
+char string1[] = " 1                                        ";  // Scrolling Text
+char character;
  
 void setup(){
   m.init(); // module MAX7219
   m.setIntensity(5); // LED Intensity 0-15
+  Serial.begin(9600);
 }
  
 void loop(){
@@ -124,7 +127,11 @@ void loop(){
   delay(100);
   m.shiftLeft(false, true);
   printStringWithShift(string1, 100);  // Send scrolling Text
- 
+
+  if (stringComplete) {
+    
+
+  }
 }
  
 // Put extracted character on Display
@@ -147,5 +154,22 @@ void printStringWithShift(char* s, int shift_speed){
   while (*s != 0){
     printCharWithShift(*s, shift_speed);
     s++;
+  }
+}
+
+void serialEvent() {
+  while (Serial.available()) {
+    /* read the most recent byte */
+    
+    char character = (char)Serial.read();
+    content += character;
+    content.toCharArray(string1, 50);
+    Serial.write(string1);
+    if ( character == '.' ){
+      content += "B";
+      
+      stringComplete = true;
+    }
+
   }
 }
